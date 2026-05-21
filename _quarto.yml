@@ -22,10 +22,9 @@ website:
         href: 05_PCA.ipynb
       - text: "06_tsne"
         href: 06_tsne.ipynb
+      - text: 📦 Download All Notebooks
+        href: notebooks.zip
 
-
-  repo-url: "https://github.com/Moji131/YOUR-NEW-REPO"
-  repo-actions: [source, issue]
 
 format:
   html:
