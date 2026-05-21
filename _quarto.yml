@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Fundamentals of Clustering"
+
+  sidebar:
+    style: docked
+    contents:
+      - text: "00_workshop_guide"
+        href: 00_workshop_guide.ipynb
+      - text: "01_intro_to_clustering"
+        href: 01_intro_to_clustering.ipynb
+      - text: "02_kmeans_clustering"
+        href: 02_kmeans_clustering.ipynb
+      - text: "03_hierarchical_clustering"
+        href: 03_hierarchical_clustering.ipynb
+      - text: "04_dbscan_clustering"
+        href: 04_dbscan_clustering.ipynb
+      - text: "05_PCA"
+        href: 05_PCA.ipynb
+      - text: "06_tsne"
+        href: 06_tsne.ipynb
+
+
+  repo-url: "https://github.com/Moji131/YOUR-NEW-REPO"
+  repo-actions: [source, issue]
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: right
