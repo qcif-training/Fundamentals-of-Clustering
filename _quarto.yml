@@ -23,12 +23,14 @@ website:
       - text: "06_tsne"
         href: 06_tsne.ipynb
       - text: 📦 Download All Notebooks
-        href: notebooks.zip
+        href: "notebooks.zip"
+        # href: "https://drive.google.com/file/d/1ssUzgAGxi5wVswXlz7GAt3JG2CUOgIc6/view?usp=sharing"
+        target: "_blank"
+        # rel: "noopener noreferrer"
 
 
 format:
   html:
     theme: cosmo
-    css: styles.css
     toc: true
     toc-location: right

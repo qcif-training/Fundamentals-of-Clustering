@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>🧭 Density-Based Clustering with DBSCAN – Fundamentals of Clustering</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -67,15 +70,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a35d343c8bdbcb87d3b82ed68e48a46c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a2a938b4dd5711f7a799c87bd16ba44c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,7 +110,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -134,8 +135,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Clustering</a> 
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -206,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#density-connectivity" id="toc-density-connectivity" class="nav-link" data-scroll-target="#density-connectivity">🔗 Density Connectivity</a></li>
   <li><a href="#advantages-of-dbscan" id="toc-advantages-of-dbscan" class="nav-link" data-scroll-target="#advantages-of-dbscan">✅ Advantages of DBSCAN</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">⚠️ Limitations</a></li>
-  <li><a href="#demonstration-hierarchical-clustering-on-synthetic-data" id="toc-demonstration-hierarchical-clustering-on-synthetic-data" class="nav-link" data-scroll-target="#demonstration-hierarchical-clustering-on-synthetic-data">Demonstration: Hierarchical Clustering on Synthetic Data</a></li>
+  <li><a href="#demonstration-dbscan-clustering-on-synthetic-data" id="toc-demonstration-dbscan-clustering-on-synthetic-data" class="nav-link" data-scroll-target="#demonstration-dbscan-clustering-on-synthetic-data">Demonstration: DBSCAN Clustering on Synthetic Data</a></li>
   <li><a href="#clustering-the-wine-dataset" id="toc-clustering-the-wine-dataset" class="nav-link" data-scroll-target="#clustering-the-wine-dataset">Clustering the Wine Dataset</a>
   <ul class="collapse">
   <li><a href="#hyperparameter-eps-epsilon-neighborhood" id="toc-hyperparameter-eps-epsilon-neighborhood" class="nav-link" data-scroll-target="#hyperparameter-eps-epsilon-neighborhood">Hyperparameter: <code>eps</code> (Epsilon Neighborhood)</a></li>
@@ -283,10 +285,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <p>In the next section, we’ll use DBSCAN on a synthetic dataset to illustrate how these parameters affect the result, and how DBSCAN behaves differently from centroid-based algorithms like K-Means.</p>
 </section>
-<section id="demonstration-hierarchical-clustering-on-synthetic-data" class="level2">
-<h2 class="anchored" data-anchor-id="demonstration-hierarchical-clustering-on-synthetic-data">Demonstration: Hierarchical Clustering on Synthetic Data</h2>
+<section id="demonstration-dbscan-clustering-on-synthetic-data" class="level2">
+<h2 class="anchored" data-anchor-id="demonstration-dbscan-clustering-on-synthetic-data">Demonstration: DBSCAN Clustering on Synthetic Data</h2>
 <p>We’ll generate a 2D dataset using <code>make_blobs</code> with 2 clusters and apply dbscan.</p>
-<div id="4971b9b3" class="cell" data-execution_count="65">
+<div id="4971b9b3" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -322,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We now apply DBSCAN to the <strong>Wine dataset</strong>, which includes 13 chemical measurements of wines from 3 grape cultivars.</p>
 <p>Unlike K-Means, DBSCAN does not require knowing the number of clusters. Instead, we will tune key hyperparameters like <code>eps</code>, <code>min_samples</code>, and <code>metric</code> to get meaningful clusters.</p>
 <p>Let’s first load and inspect the data.</p>
-<div id="5f1956e2" class="cell" data-execution_count="56">
+<div id="5f1956e2" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -340,8 +342,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>df_wine <span class="op">=</span> pd.DataFrame(X_raw, columns<span class="op">=</span>feature_names)</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>df_wine[<span class="st">"Target"</span>] <span class="op">=</span> y_true</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>df_wine.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>df_wine.head()</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># df_wine</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 
 
@@ -465,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A large <code>eps</code> → clusters merge together</li>
 </ul>
 <p>We’ll test a range of <code>eps</code> values and evaluate clustering quality using the <strong>Silhouette Score</strong>.</p>
-<div id="d001058d" class="cell" data-execution_count="57">
+<div id="d001058d" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -495,8 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Silhouette Score"</span>)</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Silhouette Score vs eps"</span>)</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -514,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>High <code>min_samples</code> → fewer clusters, more conservative grouping</li>
 </ul>
 <p>We’ll test a range of <code>min_samples</code> values with a fixed `ep_</p>
-<div id="873cd217" class="cell" data-execution_count="58">
+<div id="873cd217" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>min_samples_vals <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">15</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>scores_min_samples <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -555,7 +557,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>metric</code> parameter defines how distances between points are calculated. This affects how DBSCAN determines which points are close enough to form a cluster.</p>
 <p>Common options include: - <code>"euclidean"</code>: straight-line distance (default) - <code>"manhattan"</code>: city-block distance - <code>"cosine"</code>: angular similarity (often used in text embeddings)</p>
 <p>Different distance metrics can lead to very different clustering behaviour. We’ll test several using <code>eps = 0.5</code> and <code>min_samples = 5</code>.</p>
-<div id="ee963686" class="cell" data-execution_count="59">
+<div id="ee963686" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metric_vals <span class="op">=</span> [<span class="st">"euclidean"</span>, <span class="st">"manhattan"</span>, <span class="st">"cosine"</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scores_metric <span class="op">=</span> []</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -596,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="final-dbscan-model-and-evaluation">Final DBSCAN Model and Evaluation</h3>
 <p>Based on our hyperparameter testing, we now run DBSCAN one last time using the best-performing combination.</p>
 <p>We will: - Compute the <strong>Silhouette Score</strong> - Compare the resulting clusters to the true wine cultivars using a <strong>composition table</strong></p>
-<div id="aa8472dd" class="cell" data-execution_count="62">
+<div id="aa8472dd" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Best combination based on earlier testing (modify if different in your case)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>db_final <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">3.5</span>, min_samples<span class="op">=</span><span class="dv">5</span>, metric<span class="op">=</span><span class="st">"euclidean"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>final_labels <span class="op">=</span> db_final.fit_predict(X)</span>
@@ -614,7 +616,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Unique labels: {np.int64(0), np.int64(-1)}</code></pre>
 </div>
 </div>
-<div id="36baa237" class="cell" data-execution_count="63">
+<div id="36baa237" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create comparison DataFrame</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_result <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"True Label"</span>: y_true,</span>
@@ -625,7 +627,7 @@ Unique labels: {np.int64(0), np.int64(-1)}</code></pre>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>composition <span class="op">=</span> pd.crosstab(df_result[<span class="st">"Cluster"</span>], df_result[<span class="st">"True Label"</span>],</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                          rownames<span class="op">=</span>[<span class="st">"Predicted Cluster"</span>], colnames<span class="op">=</span>[<span class="st">"True Cultivar"</span>])</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>composition</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="63">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
 
@@ -742,7 +744,7 @@ Unique labels: {np.int64(0), np.int64(-1)}</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/qcif-training\.github\.io\/Fundamentals-of-Clustering\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
