@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/04_dbscan_clustering.html</loc>
+    <lastmod>2026-07-09T03:05:51.395Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/00_workshop_guide.html</loc>
+    <lastmod>2026-07-09T02:58:15.813Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/02_kmeans_clustering.html</loc>
+    <lastmod>2026-07-09T02:36:17.417Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/05_PCA.html</loc>
+    <lastmod>2026-07-09T03:10:40.699Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/06_tsne.html</loc>
+    <lastmod>2026-07-09T02:46:25.278Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/03_hierarchical_clustering.html</loc>
+    <lastmod>2026-07-09T03:03:17.841Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qcif-training.github.io/Fundamentals-of-Clustering/01_intro_to_clustering.html</loc>
+    <lastmod>2026-07-09T02:34:58.399Z</lastmod>
+  </url>
+</urlset>
