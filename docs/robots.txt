@@ -1,0 +1,1 @@
+Sitemap: https://qcif-training.github.io/Fundamentals-of-Clustering/sitemap.xml
