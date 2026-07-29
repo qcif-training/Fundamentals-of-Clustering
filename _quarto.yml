@@ -23,8 +23,7 @@ website:
       - text: "06_tsne"
         href: 06_tsne.ipynb
       - text: 📦 Download All Notebooks
-        href: "notebooks.zip"
-        # href: "https://drive.google.com/file/d/1ssUzgAGxi5wVswXlz7GAt3JG2CUOgIc6/view?usp=sharing"
+        href: "Clustering_in_ML.zip"
         target: "_blank"
         # rel: "noopener noreferrer"
 
